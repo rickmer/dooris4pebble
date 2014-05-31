@@ -1,0 +1,17 @@
+{
+  "uuid": "f784e026-844c-4514-bc7c-e678b482e40b",
+  "shortName": "Dooris",
+  "longName": "Dooris Status",
+  "companyName": "rickmer.org",
+  "versionCode": 1,
+  "versionLabel": "1.0.0",
+  "watchapp": {
+    "watchface": false
+  },
+  "appKeys": {
+    "dummy": 0
+  },
+  "resources": {
+    "media": []
+  }
+}
