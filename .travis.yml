@@ -11,4 +11,4 @@ install:
 - "pip install -r pebble-dev/${PEBBLE_SDK}/requirements.txt"
 env:
   global:
-    - PEBBLE_SDK=PebbleSDK-2.1.1
+    - PEBBLE_SDK=PebbleSDK-2.5
