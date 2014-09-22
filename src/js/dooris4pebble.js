@@ -8,9 +8,9 @@ String.prototype.lPad = function (n,c) {
 };
 
 function mapStatus(p) {
-    if (p == 1) {
+    if (p) {
         return 'door is open';    
-    } else if (p  == 2) {
+    } else if (!p) {
         return 'door is closed';
     } else {
         return 'unknown';
@@ -27,7 +27,7 @@ function getTimeString(unixtime) {
 }
 
 function getAPIData() {
-    var theUrl = 'https://rickmer.org/pebble/example.json.php';
+    var theUrl = 'http://hamburg.ccc.de/dooris/status.json';
     var xmlHttp = new XMLHttpRequest();
     try {
         xmlHttp.open('GET', theUrl, false);
@@ -44,8 +44,8 @@ function getAPIData() {
     }
     return {
         'error':0,
-        'timeaction':json['timeaction'], 
-        'status':json['status']
+        'timeaction':json['state']['lastchange'], 
+        'status':json['state']['open']
     };
 }
 
