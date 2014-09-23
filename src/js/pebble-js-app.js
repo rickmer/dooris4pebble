@@ -20,7 +20,7 @@ function mapStatus(p) {
 function getTimeString(unixtime) {
     var timeaction = new Date(unixtime * 1000);
     return  [timeaction.getDate().toString().lPad(2,'0'), '.', 
-            timeaction.getMonth().toString().lPad(2,'0'), '.', 
+            (timeaction.getMonth() + 1).toString().lPad(2,'0'), '.', 
             (timeaction.getFullYear() - 2000).toString().lPad(2,'0'), ' ', 
             timeaction.getHours().toString().lPad(2,'0'), ':', 
             timeaction.getMinutes().toString().lPad(2,'0')].join('');
