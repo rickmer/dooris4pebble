@@ -63,12 +63,22 @@ function sendData2Pebble() {
 Pebble.addEventListener("ready", function(e) {
         console.log("phone is ready!");
         sendData2Pebble();
-    }
-);
+    });
 
 Pebble.addEventListener("appmessage", function(e) {
         sendData2Pebble();
         console.log("received a " + e.type + " message");
         console.log("payload is: " + JSON.stringify(e.payload));
-    }
-);
+    });
+
+Pebble.addEventListener("showConfiguration", function() {
+        console.log("showing configuration");
+        Pebble.openURL('../config/index.html');
+    });
+
+Pebble.addEventListener("webviewclosed", function(e) {
+        console.log("configuration closed");
+        var options = JSON.parse(decodeURIComponent(e.response));
+        console.log("Options = " + JSON.stringify(options));
+});
+
