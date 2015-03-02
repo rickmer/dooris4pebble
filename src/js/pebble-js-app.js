@@ -73,7 +73,7 @@ Pebble.addEventListener("appmessage", function(e) {
 
 Pebble.addEventListener("showConfiguration", function() {
         console.log("showing configuration");
-        Pebble.openURL('../config/index.html');
+        Pebble.openURL('https://raw.githubusercontent.com/rickmer/dooris4pebble/master/config/index.html');
     });
 
 Pebble.addEventListener("webviewclosed", function(e) {
@@ -81,4 +81,3 @@ Pebble.addEventListener("webviewclosed", function(e) {
         var options = JSON.parse(decodeURIComponent(e.response));
         console.log("Options = " + JSON.stringify(options));
 });
-

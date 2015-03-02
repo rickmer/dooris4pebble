@@ -34,7 +34,6 @@
 			document.location = "pebblejs://close#" + encodeURIComponent(JSON.stringify({'url':space_selector.value}));
 		});
 		
-	});
-	
+	});	
 
 })();
