@@ -1,3 +1,5 @@
+var theUrl = '';
+
 String.prototype.lPad = function (n,c) {
     var i; 
     var a = this.split(''); 
@@ -27,7 +29,7 @@ function getTimeString(unixtime) {
 }
 
 function getAPIData() {
-    var theUrl = 'http://hamburg.ccc.de/dooris/status.json';
+    
     var xmlHttp = new XMLHttpRequest();
     try {
         xmlHttp.open('GET', theUrl, false);
@@ -54,7 +56,7 @@ function sendData2Pebble() {
     if (apiData['error'] === 0){
         Pebble.sendAppMessage({1:getTimeString(apiData['timeaction']), 2:mapStatus(apiData['status'])});
     } else if (apiData['error'] === 1) {
-        Pebble.sendAppMessage({1:'http', 2:'error'});
+        Pebble.sendAppMessage({1:'settings', 2:'open'});
     } else if (apiData['error'] === 2) {
         Pebble.sendAppMessage({1:'api', 2:'error'});
     }
@@ -66,6 +68,7 @@ Pebble.addEventListener("ready", function(e) {
     });
 
 Pebble.addEventListener("appmessage", function(e) {
+        theUrl = e.payload[3]; 
         sendData2Pebble();
         console.log("received a " + e.type + " message");
         console.log("payload is: " + JSON.stringify(e.payload));
@@ -73,11 +76,13 @@ Pebble.addEventListener("appmessage", function(e) {
 
 Pebble.addEventListener("showConfiguration", function() {
         console.log("showing configuration");
-        Pebble.openURL('https://raw.githubusercontent.com/rickmer/dooris4pebble/master/config/index.html');
+        Pebble.openURL('https://rickmer.org/pebble');
     });
 
 Pebble.addEventListener("webviewclosed", function(e) {
         console.log("configuration closed");
         var options = JSON.parse(decodeURIComponent(e.response));
-        console.log("Options = " + JSON.stringify(options));
+        var tuple={3: options['3'], 4: options['4']};
+        Pebble.sendAppMessage(tuple);
+        console.log("Options = " + JSON.stringify(tuple));
 });

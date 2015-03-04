@@ -10,7 +10,8 @@
     "watchface": false
   },
   "appKeys": {
-    "dummy": 0
+    "URL": 1,
+    "NAME": 2
   },
   "resources": {
     "media": [
