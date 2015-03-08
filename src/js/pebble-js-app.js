@@ -1,4 +1,5 @@
 var theUrl = '';
+var theName = '';
 
 String.prototype.lPad = function (n,c) {
     var i; 
@@ -54,7 +55,10 @@ function getAPIData() {
 function sendData2Pebble() {
     var apiData = getAPIData();
     if (apiData['error'] === 0){
-        Pebble.sendAppMessage({1:getTimeString(apiData['timeaction']), 2:mapStatus(apiData['status'])});
+        Pebble.sendAppMessage({1:getTimeString(apiData['timeaction']), 
+                               2:mapStatus(apiData['status']),
+                               3:theUrl,
+                               4:theName});
     } else if (apiData['error'] === 1) {
         Pebble.sendAppMessage({1:'settings', 2:'open'});
     } else if (apiData['error'] === 2) {
@@ -82,7 +86,8 @@ Pebble.addEventListener("showConfiguration", function() {
 Pebble.addEventListener("webviewclosed", function(e) {
         console.log("configuration closed");
         var options = JSON.parse(decodeURIComponent(e.response));
-        var tuple={3: options['3'], 4: options['4']};
-        Pebble.sendAppMessage(tuple);
-        console.log("Options = " + JSON.stringify(tuple));
+        theUrl = options['3'];
+        theName = options['4'];
+        sendData2Pebble();
+        console.log("Options = " + JSON.stringify(options));
 });

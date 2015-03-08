@@ -55,6 +55,12 @@ static void send_msg(void) {
     APP_LOG(APP_LOG_LEVEL_DEBUG, "The url is: %s", url);
   } 
 
+  char name[128];
+  if (persist_exists(SPACENAME)) {
+    persist_read_string(SPACENAME, name, sizeof(name));
+    APP_LOG(APP_LOG_LEVEL_DEBUG, "!!!The name is: %s", name);
+  } 
+
   DictionaryIterator *iter;
   app_message_outbox_begin(&iter);
 
@@ -63,6 +69,7 @@ static void send_msg(void) {
   }
 
   dict_write_cstring(iter, SPACEURL, url);
+  dict_write_cstring(iter, SPACENAME, name);
   dict_write_end(iter);
 
   app_message_outbox_send();
