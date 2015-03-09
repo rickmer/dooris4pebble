@@ -35,7 +35,13 @@
 
 		$('#submit').click(function () {
 			console.log("Submit");
-			document.location = "pebblejs://close#" + encodeURIComponent(JSON.stringify({4: space_selector.value, 3: spaces_dict[space_selector.value] }));
+			var name = space_selector.value;
+			var url = spaces_dict[space_selector.value];
+			var alias = $('#alias').val();
+			if (alias !== '') {
+				name = alias;
+			}
+			document.location = "pebblejs://close#" + encodeURIComponent(JSON.stringify({4: name, 3: url }));
 		});
 		
 	});	
