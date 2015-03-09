@@ -10,6 +10,27 @@ String.prototype.lPad = function (n,c) {
     return a.join('');
 };
 
+String.prototype.pebbleTrim = function (name) {
+
+    if (this.length <= 11) {
+        return this;
+    }
+
+    var words = this.split(' ');
+    var returnValue = '';
+
+    for (var i = 0; i < words.length; i++) {
+        returnValue += words[i]
+        if (returnValue.length >= 11) {
+            return returnValue;
+        } else if (returnValue.length + words[i+1].length >= 11) {
+            return returnValue;
+        }
+        returnValue += ' ';
+    }
+    return returnValue;
+}
+
 function mapStatus(p) {
     if (p) {
         return 'door is open';    
@@ -58,7 +79,7 @@ function sendData2Pebble() {
         Pebble.sendAppMessage({1:getTimeString(apiData['timeaction']), 
                                2:mapStatus(apiData['status']),
                                3:theUrl,
-                               4:theName});
+                               4:theName.pebbleTrim()});
     } else if (apiData['error'] === 1) {
         Pebble.sendAppMessage({1:'settings', 2:'open'});
     } else if (apiData['error'] === 2) {
