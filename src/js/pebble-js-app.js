@@ -68,7 +68,6 @@ function sendData2Pebble() {
 
 Pebble.addEventListener("ready", function(e) {
         console.log("phone is ready!");
-        sendData2Pebble();
     });
 
 Pebble.addEventListener("appmessage", function(e) {

@@ -1,4 +1,5 @@
 #include <pebble.h>
+#include <string.h>
 
 #define TTupletCString(_key, _cstring) \
 ((const Tuplet) { .type = TUPLE_CSTRING, .key = _key, .cstring = { .data = _cstring, .length = strlen(_cstring) + 1 }})
@@ -58,7 +59,7 @@ static void send_msg(void) {
   char name[128];
   if (persist_exists(SPACENAME)) {
     persist_read_string(SPACENAME, name, sizeof(name));
-    APP_LOG(APP_LOG_LEVEL_DEBUG, "!!!The name is: %s", name);
+    APP_LOG(APP_LOG_LEVEL_DEBUG, "The name is: %s", name);
   } 
 
   DictionaryIterator *iter;
@@ -75,8 +76,7 @@ static void send_msg(void) {
   app_message_outbox_send();
 }
 
-static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
-  //text_layer_set_text(title_layer, "Dooris Status");  
+static void select_click_handler(ClickRecognizerRef recognizer, void *context) { 
   text_layer_set_text(status_layer, "...");
   text_layer_set_text(time_layer, "...");
   send_msg();
@@ -109,14 +109,18 @@ static void window_load(Window *window) {
   char name[128];
   if (persist_exists(SPACENAME)) {
     persist_read_string(SPACENAME, name, sizeof(name));
-    APP_LOG(APP_LOG_LEVEL_DEBUG, "!!!The name is: %s", name);
-  } 
+    APP_LOG(APP_LOG_LEVEL_DEBUG, "The name is: %s", name);
+  } else {
+    strcpy(name, "");
+  }
 
   char url[128];
   if (persist_exists(SPACEURL)) {
     persist_read_string(SPACEURL, url, sizeof(url));
-    APP_LOG(APP_LOG_LEVEL_DEBUG, "!!!The url is: %s", url);
-  } 
+    APP_LOG(APP_LOG_LEVEL_DEBUG, "The url is: %s", url);
+  } else {
+    strcpy(url, "");
+  }
 
   Tuplet initial_values[] = {
         TupletCString(EVENTTIME, ""),
