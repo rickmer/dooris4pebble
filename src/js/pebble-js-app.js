@@ -100,7 +100,7 @@ Pebble.addEventListener("appmessage", function(e) {
 
 Pebble.addEventListener("showConfiguration", function() {
         console.log("showing configuration");
-        Pebble.openURL('https://rickmer.org/pebble');
+        Pebble.openURL('http://www.hamburg.ccc.de/dooris/pebble');
     });
 
 Pebble.addEventListener("webviewclosed", function(e) {
